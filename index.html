@@ -6,30 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Socket</title>
-    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
     <style>
-        #logInPage{
+        #logInPage {
             margin-top: 50px;
 
         }
-        body { 
-            font: 13px Helvetica, Arial; 
+
+        body {
+            font: 13px Helvetica, Arial;
         }
-        #messages { list-style-type: none; margin: 0; padding: 0; }
+
+        #messages {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
     </style>
 </head>
 
 <body>
     <div id="logInPage">
-        <center>
-            <h1>CHATx</h1>
-            <form action="">
-                <input type="text" id="nickname" placeholder="Enter Nickname" />
-                <input type="text" id="message" placeholder="Enter message" />
-                <button>Send</button>
-            </form>
-        </center>
+        <br>
+        <div class="ui raised centered blue card">
+            <div class="content">
+                <div class="description">
+                    <center>
+                        <h1>CHATx</h1>
+                        <form action="">
+                            <div class="ui left icon input">
+                                <input type="text" placeholder="Enter nickname....." id="nickname">
+                                <i class="user icon"></i>
+                            </div>
+                            <br><br><div class="ui left icon input">
+                                <input type="text" placeholder="Enter message....." id="message">
+                                <i class="mail icon"></i>
+                            </div>
+                            <br><br><button class="ui basic blue button">
+                                <i class="mail icon"></i>
+                                Send
+                            </button>
+                        </form>
+                    </center>
+                </div>
+            </div>
+        </div>
+
         <h2>G R O U P&nbsp;&nbsp;&nbsp;C H A T S</h2>
         <ul id="messages"></ul>
         <br>
@@ -43,7 +68,7 @@
         $('form').submit(function () {
             var Post = $('#nickname').val() + ": " + $('#message').val()
             socket.emit('chat message', Post);
-            $('#mesage').val('');
+            $('#message').val('');
             return false;
         });
         socket.on('chat message', function (msg) {
