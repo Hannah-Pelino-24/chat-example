@@ -11,68 +11,136 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
     <style>
-        #logInPage {
-            margin-top: 50px;
-
-        }
 
         body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
             font: 13px Helvetica, Arial;
+            background-color: rgb(242, 242, 242);
+        }
+
+        #logInPage{
+            padding: 20px;
+            height:90%;
+            overflow-y: auto;
         }
 
         #messages {
             list-style-type: none;
             margin: 0;
-            padding: 0;
+            padding: 0 10px;
+            margin-bottom: 100px;
+        }
+        .send{
+            position: absolute!important;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+        }
+        .appTitle{
+            position: sticky!important;
+            top: 0;
+            background-color: rgb(242, 242, 242);
+            z-index: 5;
         }
     </style>
 </head>
 
 <body>
-    <div id="logInPage">
-        <br>
-        <div class="ui raised centered blue card">
-            <div class="content">
-                <div class="description">
-                    <center>
-                        <h1>CHATx</h1>
-                        <form action="">
-                            <div class="ui left icon input">
-                                <input type="text" placeholder="Enter nickname....." id="nickname">
-                                <i class="user icon"></i>
-                            </div>
-                            <br><br><div class="ui left icon input">
-                                <input type="text" placeholder="Enter message....." id="message">
-                                <i class="mail icon"></i>
-                            </div>
-                            <br><br><button class="ui basic blue button">
-                                <i class="mail icon"></i>
-                                Send
-                            </button>
-                        </form>
-                    </center>
+    <div class="ui mini modal">
+
+        <div class=" content">
+            <div class="description">
+                <div class="ui raised fluid  centered blue card">
+                    <div class="content">
+                        <div class="description">
+                            <center>
+                                <h1>CHATx</h1>
+                                <div class="ui left icon input">
+                                    <input class="ui fluid" type="text" placeholder="Enter nickname....." id="nickname">
+                                    <i class="user icon"></i>
+                                </div>
+                                <br><br>
+                            </center>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <center>
+            <div class="ui actions">
+                <div class="ui positive btn-user left icon button disabled centered">
+                    Set Username
+                    <i class="checkmark icon"></i>
+                </div>
+            </div><br>
+        </center>
+    </div>
 
-        <h2>G R O U P&nbsp;&nbsp;&nbsp;C H A T S</h2>
-        <ul id="messages"></ul>
+    <div class="ui segment appTitle">
+            <div class="ui fluid tabular">
+                <center>
+                    <h1>G R O U P&nbsp;&nbsp;&nbsp;C H A T S</h1>
+                </center>
+            </div>
+        </div>
+    <div id="logInPage">
         <br>
+
+
+
+        <div id="messages">
+
+        </div>
+        <br>
+    </div>
+    <div class="ui fluid action input send">
+        <input type="text" id="message" placeholder="Enter message...">
+        <div class="ui labeled button " tabindex="0">
+            <div class="ui blue basic button btnSend">
+                <i class="comment icon"></i> Send
+            </div>
+        </div>
     </div>
 </body>
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
-    $(function () {
+    $(document).ready(function () {
+        var username;
+        $('.ui.mini.modal')
+            .modal('setting', 'closable', false)
+            .modal('show');
+        $('#nickname').change(function () {
+            $('.btn-user').removeClass('disabled')
+        })
+        $('.btn-user').click(function () {
+            username = $('#nickname').val();
+            console.log(username)
+        })
+       
         var socket = io();
-        $('form').submit(function () {
-            var Post = $('#nickname').val() + ": " + $('#message').val()
-            socket.emit('chat message', Post);
+        $('.btnSend').click(function () {
+            socket.emit('chat message', { username: username, message: $('#message').val() });
+            $('#messages').append($('<div>', {
+                class: "ui compact left pointing red basic big label "
+            }).css({
+                padding: '10px',
+                marginTop: '10px'
+            }).text("Me : "+  $('#message').val()))
+
+            $("#messages").append('<h4 class="ui horizontal divider header"><i class="tag icon"></i> Sent   </h4>')
             $('#message').val('');
-            return false;
+
         });
         socket.on('chat message', function (msg) {
-            $('#messages').append($('<li>').text(msg));
+     
+            $('#messages').append($('<div>', {
+                class: "ui left pointing blue basic big label "
+            }).css({
+                padding: '10px',
+                marginTop: '10px'
+            }).text(msg),"<br>");
             window.scrollTo(0, document.body.scrollHeight);
         });
         function timeoutFunction() {
