@@ -123,13 +123,14 @@
         $('.btnSend').click(function () {
             socket.emit('chat message', { username: username, message: $('#message').val() });
             $('#messages').append($('<div>', {
-                class: "ui compact left pointing red basic big label "
+                class: "ui compact right pointing red basic big label "
             }).css({
                 padding: '10px',
-                marginTop: '10px'
+                marginTop: '10px',
+                float: 'right'
             }).text("Me : "+  $('#message').val()))
 
-            $("#messages").append('<h4 class="ui horizontal divider header"><i class="tag icon"></i> Sent   </h4>')
+            $("#messages").append('<br><br><br><br>')
             $('#message').val('');
 
         });
@@ -139,7 +140,8 @@
                 class: "ui left pointing blue basic big label "
             }).css({
                 padding: '10px',
-                marginTop: '10px'
+                marginTop: '10px',
+                float: 'left'
             }).text(msg),"<br>");
             window.scrollTo(0, document.body.scrollHeight);
         });
