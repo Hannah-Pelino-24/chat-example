@@ -97,6 +97,8 @@
         </div>
         <br>
     </div>
+    <hr>
+
     <div class="ui fluid action input send">
         <input type="text" id="message" placeholder="Enter message...">
         <div class="ui labeled button " tabindex="0">
@@ -106,10 +108,14 @@
         </div>
     </div>
 </body>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<!-- <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+ -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         var username;
+        var socket = io();
+
         $('.ui.mini.modal')
             .modal('setting', 'closable', false)
             .modal('show');
@@ -118,14 +124,9 @@
         })
         $('.btn-user').click(function () {
             username = $('#nickname').val();
-            socket.emit('set-online', username)
-            console.log('online')
-            $('.btn-user').click(function () {
-                socket.emit('online', username)
-            })
+            socket.emit('set-online', { username: username })
         })
 
-        var socket = io();
         $('.btnSend').click(function () {
             socket.emit('chat message', { username: username, message: $('#message').val() });
             $('#messages').append($('<div>', {
@@ -146,13 +147,12 @@
                 class: "ui left pointing blue basic big label "
             }).css({
                 padding: '10px',
-                marginTop: '10px',
-                float: 'left'
+                marginTop: '10px'
             }).text(msg), "<br>");
             window.scrollTo(0, document.body.scrollHeight);
         });
         socket.on('online', function (msg) {
-            console.log(msg.length)
+            $('#onlineUser').text(msg)
         })
     });
 </script>
