@@ -22,7 +22,7 @@
 
         #logInPage{
             padding: 20px;
-            height:90%;
+            height:70%;
             overflow-y: auto;
         }
 
@@ -30,7 +30,8 @@
             list-style-type: none;
             margin: 0;
             padding: 0 10px;
-            margin-bottom: 100px;
+            padding-bottom: 60px;
+            font-weight: bold 1px;
         }
         .send{
             position: absolute!important;
@@ -79,12 +80,13 @@
     </div>
 
     <div class="ui segment appTitle">
-            <div class="ui fluid tabular">
-                <center>
-                    <h1>G R O U P&nbsp;&nbsp;&nbsp;C H A T S</h1>
-                </center>
-            </div>
+        <div class="ui fluid tabular">
+            <center>
+                <h1>G R O U P&nbsp;&nbsp;&nbsp;C H A T S</h1>
+                <h3 class="ui fluid tabular">NUMBER OF ONLINE: &nbsp;&nbsp;&nbsp;&nbsp;<span id="onlineUser"></span></h3>
+            </center>
         </div>
+    </div>
     <div id="logInPage">
         <br>
 
@@ -116,9 +118,13 @@
         })
         $('.btn-user').click(function () {
             username = $('#nickname').val();
-            console.log(username)
+            socket.emit('set-online', username)
+            console.log('online')
+            $('.btn-user').click(function () {
+                socket.emit('online', username)
+            })
         })
-       
+
         var socket = io();
         $('.btnSend').click(function () {
             socket.emit('chat message', { username: username, message: $('#message').val() });
@@ -128,27 +134,26 @@
                 padding: '10px',
                 marginTop: '10px',
                 float: 'right'
-            }).text("Me : "+  $('#message').val()))
+            }).text("Me : " + $('#message').val()))
 
             $("#messages").append('<br><br><br><br>')
             $('#message').val('');
 
         });
         socket.on('chat message', function (msg) {
-     
+
             $('#messages').append($('<div>', {
                 class: "ui left pointing blue basic big label "
             }).css({
                 padding: '10px',
                 marginTop: '10px',
                 float: 'left'
-            }).text(msg),"<br>");
+            }).text(msg), "<br>");
             window.scrollTo(0, document.body.scrollHeight);
         });
-        function timeoutFunction() {
-            typing = false;
-            socket.emit(noLongerTypingMessage);
-        }
+        socket.on('online', function (msg) {
+            console.log(msg.length)
+        })
     });
 </script>
 
