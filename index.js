@@ -22,6 +22,12 @@ io.on('connection', function (socket) {
   socket.on('disconnect',function(){
     --counter
   })
+  socket.on('typing',function(username){
+    socket.broadcast.emit('typing',username)
+  })
+  socket.on('stop-typing',function(username){
+    socket.broadcast.emit('stop-typing',username)
+  })
 });
 http.listen(port, function () {
   console.log('listening on *:' + port);

@@ -93,12 +93,12 @@
 
 
         <div id="messages">
+            <div class="ui raised segment" id="typing"></div>
 
         </div>
         <br>
     </div>
     <hr>
-
     <div class="ui fluid action input send">
         <input type="text" id="message" placeholder="Enter message...">
         <div class="ui labeled button " tabindex="0">
@@ -110,7 +110,8 @@
 </body>
 <!-- <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
  -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I="
+    crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
         var username;
@@ -125,8 +126,21 @@
         $('.btn-user').click(function () {
             username = $('#nickname').val();
             socket.emit('set-online', { username: username })
-        })
 
+        })
+        $('#message').keypress(function () {
+            socket.emit('typing', username)
+        })
+        $('#messages').focusout(function () {
+            socket.emit('stop-typing', username)
+        })
+        socket.on('typing', function (msg) {
+            $("<p>",{id: msg}).text(msg + " is typing........").appendTo('#typing')
+            // $('#typing').addClass(msg).text();
+        })
+        socket.on('stop-typing', function (msg) {
+            $('#' + msg).html('');
+        })
         $('.btnSend').click(function () {
             socket.emit('chat message', { username: username, message: $('#message').val() });
             $('#messages').append($('<div>', {
