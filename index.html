@@ -4,48 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compclsatible" content="ie=edge">
     <title>Socket</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-    <style>
-
-        body {
-            margin: 0;
-            height: 100vh;
-            overflow: hidden;
-            font: 13px Helvetica, Arial;
-            background-color: rgb(242, 242, 242);
-        }
-
-        #logInPage{
-            padding: 20px;
-            height:70%;
-            overflow-y: auto;
-        }
-
-        #messages {
-            list-style-type: none;
-            margin: 0;
-            padding: 0 10px;
-            padding-bottom: 60px;
-            font-weight: bold 1px;
-        }
-        .send{
-            position: absolute!important;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-        }
-        .appTitle{
-            position: sticky!important;
-            top: 0;
-            background-color: rgb(242, 242, 242);
-            z-index: 5;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
 <body>
@@ -73,28 +40,23 @@
             <div class="ui actions">
                 <div class="ui positive btn-user left icon button disabled centered">
                     Set Username
-                    <i class="checkmark icon"></i>
                 </div>
             </div><br>
         </center>
     </div>
-
     <div class="ui segment appTitle">
         <div class="ui fluid tabular">
             <center>
+                <br>
                 <h1>G R O U P&nbsp;&nbsp;&nbsp;C H A T S</h1>
-                <h3 class="ui fluid tabular">NUMBER OF ONLINE: &nbsp;&nbsp;&nbsp;&nbsp;<span id="onlineUser"></span></h3>
             </center>
         </div>
     </div>
     <div id="logInPage">
         <br>
-
-
-
         <div id="messages">
-            <div class="ui raised segment" id="typing"></div>
-
+            <br>
+            <div class="ui label" id="typing"></div>
         </div>
         <br>
     </div>
@@ -107,68 +69,32 @@
             </div>
         </div>
     </div>
+    <div id="userPage">
+            <div class="ui card">
+                <div class="content">
+                    <div class="header" id="title">Online User</div>
+                </div>
+                <div class="content">
+                    <div class="ui small feed">
+                        <div class="event">
+                            <div class="content">
+                                <div class="summary">
+                                    <p id="activeUser" class="ui circle icon">Hannah</p>
+                                    <p id="activeUser">Geneva</p>
+                                    <p id="activeUser">Chilla</p>
+                                    <p id="activeUser">Lorly</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 <!-- <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
  -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I="
     crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function () {
-        var username;
-        var socket = io();
-
-        $('.ui.mini.modal')
-            .modal('setting', 'closable', false)
-            .modal('show');
-        $('#nickname').change(function () {
-            $('.btn-user').removeClass('disabled')
-        })
-        $('.btn-user').click(function () {
-            username = $('#nickname').val();
-            socket.emit('set-online', { username: username })
-
-        })
-        $('#message').keypress(function () {
-            socket.emit('typing', username)
-        })
-        $('#messages').focusout(function () {
-            socket.emit('stop-typing', username)
-        })
-        socket.on('typing', function (msg) {
-            $("<p>",{id: msg}).text(msg + " is typing........").appendTo('#typing')
-            // $('#typing').addClass(msg).text();
-        })
-        socket.on('stop-typing', function (msg) {
-            $('#' + msg).html('');
-        })
-        $('.btnSend').click(function () {
-            socket.emit('chat message', { username: username, message: $('#message').val() });
-            $('#messages').append($('<div>', {
-                class: "ui compact right pointing red basic big label "
-            }).css({
-                padding: '10px',
-                marginTop: '10px',
-                float: 'right'
-            }).text("Me : " + $('#message').val()))
-
-            $("#messages").append('<br><br><br><br>')
-            $('#message').val('');
-
-        });
-        socket.on('chat message', function (msg) {
-
-            $('#messages').append($('<div>', {
-                class: "ui left pointing blue basic big label "
-            }).css({
-                padding: '10px',
-                marginTop: '10px'
-            }).text(msg), "<br>");
-            window.scrollTo(0, document.body.scrollHeight);
-        });
-        socket.on('online', function (msg) {
-            $('#onlineUser').text(msg)
-        })
-    });
-</script>
+<script src="./scripts.js"></script>
 
 </html>

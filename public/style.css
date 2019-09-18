@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font: 13px Helvetica, Arial;
+    background-color: rgb(242, 242, 242);
+}
+
+#logInPage{
+    padding: 20px;
+    height:70%;
+    overflow-y: auto;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    margin-left: 330px;
+    padding: 0 10px;
+    font-weight: bold 1px;
+}
+.send{
+    position: absolute!important;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+}
+.appTitle{
+    position: sticky!important;
+    top: 0;
+    background-color: rgb(242, 242, 242);
+    z-index: 5;
+}
+#typing{
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.card{
+    margin-left: 40px;
+    background-color: greenyellow
+}
+#message{
+    margin: 0;
+    margin-left: 381px;
+    max-width: 62%;
+}
+hr{
+    margin-left: 381px;
+    margin-bottom: 20px;
+}
+.summary{
+    margin-left: 40px;
+    height: 500px;
+}
+#title{
+    font-size: 30px;
+    color: green;
+}
+#userPage{
+    position: absolute;
+    left: 40px;
+    top: 130px;
+}
+.send{
+    margin-bottom: 50px!important;
+}
