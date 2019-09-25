@@ -3,7 +3,8 @@ body {
     height: 100vh;
     overflow: hidden;
     font: 13px Helvetica, Arial;
-    background-color: rgb(242, 242, 242);
+    background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url("https://images.pexels.com/photos/2246471/pexels-photo-2246471.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-size: cover;
 }
 
 #logInPage{
@@ -18,6 +19,7 @@ body {
     margin-left: 330px;
     padding: 0 10px;
     font-weight: bold 1px;
+
 }
 .send{
     position: absolute!important;
@@ -28,16 +30,12 @@ body {
 .appTitle{
     position: sticky!important;
     top: 0;
-    background-color: rgb(242, 242, 242);
+    background-color: rgba(128, 229, 255,0.4)!important;
     z-index: 5;
 }
 #typing{
-    color: black;
+    color: greenyellow;
     font-family: Arial, Helvetica, sans-serif;
-}
-.card{
-    margin-left: 40px;
-    background-color: greenyellow
 }
 #message{
     margin: 0;
@@ -47,6 +45,7 @@ body {
 hr{
     margin-left: 381px;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 4px #000000;
 }
 .summary{
     margin-left: 40px;
@@ -54,13 +53,26 @@ hr{
 }
 #title{
     font-size: 30px;
-    color: green;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
 }
 #userPage{
     position: absolute;
     left: 40px;
-    top: 130px;
+    top: 178px;
+    box-shadow: -1px 1px 8px 1px #888888;
 }
 .send{
     margin-bottom: 50px!important;
+}
+.onlineUser{
+    font-family: Tahoma, Geneva, sans-serif;
+}
+#verticalLine{
+    position: absolute;
+    left: 350px;
+    top: 136px;
+    width: 2px;
+    height: 100%;   
+    box-shadow: -1px 1px 8px 1px #888888;
 }

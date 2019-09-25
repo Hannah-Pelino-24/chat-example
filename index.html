@@ -17,7 +17,6 @@
 
 <body>
     <div class="ui mini modal">
-
         <div class=" content">
             <div class="description">
                 <div class="ui raised fluid  centered blue card">
@@ -25,7 +24,8 @@
                         <div class="description">
                             <center>
                                 <h1>CHATx</h1>
-                                <div class="ui left icon input">
+                                <div class="err-msg"></div>
+                                <div class="ui left icon input" id="for-nickname">
                                     <input class="ui fluid" type="text" placeholder="Enter nickname....." id="nickname">
                                     <i class="user icon"></i>
                                 </div>
@@ -48,18 +48,21 @@
         <div class="ui fluid tabular">
             <center>
                 <br>
-                <h1>G R O U P&nbsp;&nbsp;&nbsp;C H A T S</h1>
+                <h1 id="titleniSiya">G R O U P&nbsp;&nbsp;&nbsp;C H A T S</h1>
+                <br>
             </center>
         </div>
     </div>
-    <div id="logInPage">
-        <br>
-        <div id="messages">
+    <!-- <div id="horizontalLine"></div> -->
+
+        <div id="logInPage">
             <br>
-            <div class="ui label" id="typing"></div>
+            <div id="messages">
+                <br>
+                <div class="ui label" id="typing"></div>
+            </div>
+            <br>
         </div>
-        <br>
-    </div>
     <hr>
     <div class="ui fluid action input send">
         <input type="text" id="message" placeholder="Enter message...">
@@ -69,32 +72,29 @@
             </div>
         </div>
     </div>
+    <div id="verticalLine"></div>
+    
     <div id="userPage">
-            <div class="ui card">
-                <div class="content">
-                    <div class="header" id="title">Online User</div>
-                </div>
-                <div class="content">
-                    <div class="ui small feed">
-                        <div class="event">
-                            <div class="content">
-                                <div class="summary">
-                                    <p id="activeUser" class="ui circle icon">Hannah</p>
-                                    <p id="activeUser">Geneva</p>
-                                    <p id="activeUser">Chilla</p>
-                                    <p id="activeUser">Lorly</p>
-                                </div>
+        <div class="ui card">
+            <div class="content">
+                <div class="header" id="title">Online User(s)</div>
+            </div>
+            <div class="content">
+                <div class="ui small feed">
+                    <div class="event">
+                        <div class="content">
+                            <div class="ui list onlineUser">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </body>
 <!-- <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
  -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I="
-    crossorigin="anonymous"></script>
+ <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script src="./scripts.js"></script>
 
 </html>
